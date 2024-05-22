@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping List</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.delete {
+  color: red;
+  cursor: pointer;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #888;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Shopping List</h1>
+    <input type="text" id="itemInput" placeholder="Enter an item">
+    <button onclick="addItem()">Add Item</button>
+    <ul id="itemList"></ul>
+  </div>
+
+  <script>
+    // Array to store items
+var items = [];
+
+// Function to add a new item
+function addItem() {
+  var itemInput = document.getElementById("itemInput");
+  var itemList = document.getElementById("itemList");
+
+  // Get the item value
+  var itemText = itemInput.value.trim();
+
+  // Check if the item is not empty
+  if (itemText !== "") {
+    // Add the item to the items array
+    items.push({ name: itemText, purchased: false });
+
+    // Clear the item input
+    itemInput.value = "";
+
+    // Refresh the item list
+    displayItems();
+  }
+}
+
+// Function to display items
+function displayItems() {
+  var itemList = document.getElementById("itemList");
+
+  // Clear the previous item list
+  itemList.innerHTML = "";
+
+  // Loop through the items array and display each item
+  items.forEach(function(item, index) {
+    var li = document.createElement("li");
+    li.textContent = item.name;
+
+    if (item.purchased) {
+      li.classList.add("done");
+    }
+
+    li.onclick = function() {
+      togglePurchased(index);
+    };
+
+    var deleteButton = document.createElement("span");
+    deleteButton.textContent = " ❌";
+    deleteButton.className = "delete";
+    deleteButton.onclick = function(event) {
+      event.stopPropagation();
+      deleteItem(index);
+    };
+
+    li.appendChild(deleteButton);
+    itemList.appendChild(li);
+  });
+}
+
+// Function to toggle the purchased state of an item
+function togglePurchased(index) {
+  items[index].purchased = !items[index].purchased;
+  displayItems();
+}
+
+// Function to delete an item
+function deleteItem(index) {
+  items.splice(index, 1);
+  displayItems();
+}
+
+// Initial display of items
+displayItems();
+
+  </script>
+</body>
+</html>
