@@ -271,13 +271,16 @@
   }
   
   .section-hero--image img {
-    width: 100%;
+    width: 60%;
     height: auto;
     transform: scaleX(-1);
     -webkit-transform: scaleX(-1);
     -moz-transform: scaleX(-1);
     -ms-transform: scaleX(-1);
     -o-transform: scaleX(-1);
+    border:20px dashed white;
+    border-radius: 50%;
+    opacity: 95px;
   }
   
   /***** End  hero Section *****/
